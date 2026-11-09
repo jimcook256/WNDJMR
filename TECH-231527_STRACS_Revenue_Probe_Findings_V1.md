@@ -1,7 +1,7 @@
 # TECH-231527 — STRACS Revenue Probe Findings (V1)
 
 Prepared by: Jim Cook, Covenant BI | Started: 2026-11-09 | Status: V2 and V3 results in
-Scripts: `TECH-231527_STRACS_Revenue_Probes_V2.sql` (run), `TECH-231527_STRACS_Revenue_Probes_V3.sql` (not yet run)
+Scripts: `TECH-231527_STRACS_Revenue_Probes_V2.sql` (run), `TECH-231527_STRACS_Revenue_Probes_V3.sql` (run)
 
 ## V2 results (run in PROD, CTG-SQLAAG02, MANH)
 
@@ -26,13 +26,13 @@ Scripts: `TECH-231527_STRACS_Revenue_Probes_V2.sql` (run), `TECH-231527_STRACS_R
 
 Both: STRACS has linehaul the TMW invoice lines do not. Sum of gaps = $3,847.98 (matches net).
 
-## Open questions V3 should answer
+## Open questions V3 was written to answer (answered below)
 - Why 2,303 compared vs 2,314 (11 dropped by inner joins): in STRACS? in invoices? ord_hdrnumber vs ord_number?
 - Is `PA_Customer_updated_loads` still the 11/03 population? (`RunOrders` vs 2,314)
 - Orders 6500058 / 6499220: linehaul unbilled, under another order number, or on another invoice?
 - Why V1's $31,190 gap differs from today's $32,305.91 (population or STRACS changes after 11/03)
 
-## V3 results (paste here)
+## V3 results (run in PROD)
 
 ### Result 1 — join counts
 Run orders 2,314 (matches the 11/03 run; no non-numeric rows). In STRACS 2,312, in invoices 2,303, in both 2,303. Missing from STRACS 2, missing from invoices 11. No order has more than one STRACS row. Still off: 2.
