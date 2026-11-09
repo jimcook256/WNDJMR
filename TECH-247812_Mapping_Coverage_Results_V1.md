@@ -39,7 +39,7 @@ Of the NOT IN MAPPING dollars, linehaul is $6,388,296.24 (LHD $4,205,339.82 and 
 
 ## Result 1: charge codes since May (all customers)
 - **Mapped** (65 codes), mostly fuel surcharge and standard accessorials: FUELMI $48.7M, FFS $10.2M, GM $1.3M, FUELRE $1.2M, RE $0.9M, TONU, TCRPM, TC, DHF, LU, LAY, STOP and others. Fuel codes map to indexes 5/6, tolls to 17/18, driver-handled items to 3/4, detention and layover to 9/2.
-- **Not in mapping:** about 480 codes. Linehaul (LHD $115.96M, LHF $75.34M) is expected. The rest are customer-specific codes for dedicated accounts (Playcore, Hood, Colgate, the feed and live-haul codes and so on), which are billed outside the Expedited population Manhattan covers. They show here only because Result 1 spans all customers.
+- **Not in mapping:** several hundred codes. Linehaul (LHD $115.96M, LHF $75.34M) is expected. The rest are customer-specific codes for dedicated accounts (Playcore, Hood, Colgate, the feed and live-haul codes and so on), which are billed outside the Expedited population Manhattan covers. They show here only because Result 1 spans all customers.
 - **Company-wide, still unmapped, and the same codes seen on the run:** MIN $1,469,717.39 (737 lines), STOPF $1,384,605.00 (1,508 lines), AITWGM $127,486.35 (65 lines). The run itself carries only the $22,314.
 
 ## Result 2: pay codes since May (all fleets)
@@ -59,9 +59,9 @@ Not in mapping, matching the guide's list of pay items not sent:
 Also unmapped and large: TRIPPY $7.74M, DRVSLY $5.65M, HR $2.66M, DFMLTM $2.48M, ROUTE $1.40M. Mapped: MILES $52.4M, PDIEM $6.9M, GRNT $2.3M, OT $1.0M, DETPAY $1.0M, STOPS $0.8M, and 16 others. Because Result 2 spans all fleets, these dollars are not the Manhattan population. Sizing them for the run's legs needs a leg-level query.
 
 ## Result 5: the mapping has changed over time
-- **Charges vs the 2013 copy:** 38 codes are only in the current table, 12 only in the 2013 copy. **MIN (minimum charge) was mapped in 2013 (indexes 8/10) and is not mapped now.** The 2013 copy also mapped LHD, LHF, LHC, LHDOM, LHT, LHV, LHW, LHO, FAC, 100LTR and ORDFLT; the current table has none of them. MAX changed from 8/10 to 9/11.
-- **Charges vs `_11_26`:** the current table contains everything in `_11_26` plus about 80 codes. MIN is in neither.
-- **Pay vs `_11_26`:** about 85 codes are only in the current table (mostly deductions and reimbursements at 58/60) and about 100 are only in the old copy. The old copy mapped fuel purchase (FULTRC, FUELMI, FUELRE, FUEL, FUELFE at 53/54), advances (ADV and ADV.* at 59/61), layover and breakdown (LAY, BREAKL, BRKDWN at 52 or 59 / 61), orientation, bonus, holiday, sick and vacation pay. None of these is in the current table.
+- **Charges vs the 2013 copy:** 36 codes are only in the current table, 12 only in the 2013 copy. **MIN (minimum charge) was mapped in 2013 (indexes 8/10) and is not mapped now.** The 2013 copy also mapped LHD, LHF, LHC, LHDOM, LHT, LHV, LHW, LHO, FAC, 100LTR and ORDFLT; the current table has none of them. MAX changed from 8/10 to 9/11.
+- **Charges vs `_11_26`:** the current table contains everything in `_11_26` plus 68 codes. MIN is in neither.
+- **Pay vs `_11_26`:** dozens of codes are only in the current table (mostly deductions and reimbursements at 58/60) and about the same number are only in the old copy. The old copy mapped fuel purchase (FULTRC, FUELMI, FUELRE, FUEL, FUELFE at 53/54), advances (ADV and ADV.* at 59/61), layover and breakdown (LAY, BREAKL, BRKDWN at 52 or 59 / 61), orientation, bonus, holiday, sick and vacation pay. None of these is in the current table.
 - **DET and LOAD (pay)** changed cost index from 52 to 58.
 - **`manh_pyt_itemcode_Mapping_Original`** holds every row twice (248 rows, 124 codes).
 - The copies are not dated in this output, so when each change happened is not known.
