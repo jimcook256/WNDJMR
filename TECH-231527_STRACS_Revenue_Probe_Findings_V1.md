@@ -64,3 +64,22 @@ Both orders: status CMP, invoice status AVL (not yet invoiced). TMW ord_totalcha
 - STRACS agrees with TMW's order total on the 2 still-off orders; the TMW invoicedetail table is the incomplete side, because the orders are unbilled. Invoice detail is a valid comparison only for invoiced orders.
 - STRACS holds rows for the 9 uninvoiced orders even though TMW's order total is 0.01 on 7 of them. What STRACS reports for them is not yet checked.
 - The 2 cancelled orders match the guide's "cancelled 2" item.
+
+## V4 results (run in PROD 11/09/2026) — STRACS revenue on uninvoiced orders
+
+| Group | Orders | In STRACS | STRACS Op Rev (LH + OTHER) | STRACS FSC | EFSC + REEFER | STRACS all | TMW order total |
+|---|---|---|---|---|---|---|---|
+| Invoiced | 2,301 | 2,301 | 6,456,699.78 | 2,160,779.80 | 36,153.89 | 8,653,633.47 | 8,653,000.07 |
+| Uninvoiced | 13 | 11 | 4,963.65 | 1,766.58 | 0.00 | 6,730.23 | 6,730.23 |
+
+- Uninvoiced split: 11 CMP / AVL (all 11 in STRACS, $6,730.23) and 2 CAN / XIN (not in STRACS, $0).
+- Result 3 returned no rows: on every uninvoiced order STRACS equals the TMW order total within $1. STRACS carries the same 0.01 placeholders TMW does, so there is no hidden revenue on those orders.
+- Result 4: of the 2,303 orders with invoice lines, 2 have no line attached to an invoice (6499220, 6500058). STRACS and TMW order total both $5,614.56 on those two.
+- The 2,301 invoiced orders are exactly the 2,301 that matched in V2. STRACS (all columns) equals the invoiced total on them: 8,653,633.47.
+- TMW order total (ord_totalcharge) is $633.40 below STRACS and the invoices on the invoiced orders. Not traced to orders; it supports the guide's point that Op Rev does not come from TMW's order total.
+
+## Conclusions overall
+- STRACS agrees with TMW invoices to the dollar on all 2,301 invoiced orders, once EMERGENCY_FSC and REEFER_UPCHARGE are counted.
+- DOMO's Op Rev (LH + OTHER) leaves out $36,153.89 of EMERGENCY_FSC and REEFER_UPCHARGE, about 0.56% of Op Rev. $34,736.89 of it is reefer upcharge. Business decision.
+- 11 completed-but-unbilled orders carry $6,730.23 of STRACS revenue (Op Rev $4,963.65). This is 0.08% of the run and matches TMW's order total.
+- 2 cancelled orders have no STRACS row and drop out at the INNER join.
