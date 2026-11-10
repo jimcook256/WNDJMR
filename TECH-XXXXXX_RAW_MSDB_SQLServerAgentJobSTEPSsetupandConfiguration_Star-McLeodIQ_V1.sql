@@ -26,6 +26,7 @@ BUSINESS LOGIC:
 
 CHANGE LOG:
     2026-11-10 - J.Cook - TECH-XXXXXX - Replace wrong (sysjobs) query with steps query
+                          (original 10/23/26 load by Janice Morgan used the Setup query by mistake)
 
 DEPENDENCIES:
     - msdb.dbo.sysjobsteps
@@ -43,6 +44,14 @@ use msdb
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------
 -- RAW_MSDB_SQLServerAgentJobSTEPSsetupandConfiguration-Star-McLeodIQ		Janice Morgan 10/23/26 -- loaded to DOMO
+-- Jim Cook | TECH-XXXXXX | 2026-11-10
+--   ISSUE (original load by Janice Morgan 10/23/26): this job was loaded with a copy of the
+--     JobSetupandConfiguration (sysjobs) query instead of the steps query. The dataset therefore had no
+--     StepID, StepNo, StepType, RunAs, Database, ExecutableCommand, OnSuccessAction, OnFailureAction or
+--     RetryAttempts columns, and Star-McLeodIQ rows were dropped by the INNER JOIN on StepID in the
+--     combined SQL Agent view.
+--   FIX: query below replaced with the steps query used on ctg-sqlaag01/02, ctg-sqlgpcl01 and hq-sql-tm1.
+--     Janice's original header line above is left in place.
 ------------------------------------------------------------------------------------------------------------------------------------------------------
 
  SELECT
