@@ -18,8 +18,8 @@ TARGET SYSTEM:  SSMS result grid (read-only; only temp tables are created)
 BUSINESS LOGIC:
     - Edit @StartDate / @EndDate below (EndDate is inclusive; +1 day applied)
     - Lane rows: tariffrate changed in window (RecordType New / After)
-    - Header rows: tariffheader.tar_rate > 0, tar_updateon in window, any tariffkey (ended keys included),
-      tariffkey, and no grid rates on the tariff (RecordType 'Header')
+    - Header rows: tariffheader.tar_rate > 0, tar_updateon in window, any tariffkey
+      (ended keys included), and no grid rates on the tariff (RecordType 'Header')
 
 CHANGE LOG:
     2026-11-16 - J.Cook - TECH-248368 - V1.1: removed active-key (trk_enddate) filter; tariff 41785 (ended 2026-08-15) was excluded
