@@ -26,6 +26,7 @@ BUSINESS LOGIC:
 
 CHANGE LOG:
     2026-11-16 - J.Cook - TECH-248368 - Initial build
+    2026-11-16 - J.Cook - TECH-248368 - V1.1 fix: COLLATE DATABASE_DEFAULT in step 1 (Msg 451 UNION collation conflict)
 
 DEPENDENCIES:
     - sys.sql_modules / sys.procedures in the database hosting CTG_RateReview_sp
@@ -39,7 +40,7 @@ NOTES:
 
 -- 1) Find which database holds the proc (run on the BISoxReports data source server)
 DECLARE @sql NVARCHAR(MAX) = N'';
-SELECT @sql += N'SELECT ''' + name + N''' AS DbName, s.name AS SchemaName, p.name AS ProcName, p.modify_date
+SELECT @sql += N'SELECT ''' + name + N''' COLLATE DATABASE_DEFAULT AS DbName, s.name COLLATE DATABASE_DEFAULT AS SchemaName, p.name COLLATE DATABASE_DEFAULT AS ProcName, p.modify_date
                  FROM ' + QUOTENAME(name) + N'.sys.procedures p
                  JOIN ' + QUOTENAME(name) + N'.sys.schemas s ON s.schema_id = p.schema_id
                  WHERE p.name = ''CTG_RateReview_sp'' UNION ALL '
