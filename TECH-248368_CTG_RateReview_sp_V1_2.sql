@@ -476,7 +476,7 @@ UPDATE #TariffRates
 
 
 -- Header (flat) rates: tariffheader.tar_rate with no lane grid                              -- Jim Cook | TECH-248368
--- One row per active tariffkey (customer). Tariffs already returning lane rows are skipped. -- Jim Cook | TECH-248368
+-- One row per tariffkey (customer), ended keys included. Tariffs already returning lane rows are skipped. -- Jim Cook | TECH-248368
 INSERT INTO #HeaderRates                                                                     -- Jim Cook | TECH-248368
     (                                                                                        -- Jim Cook | TECH-248368
      Tariff#                                                                                 -- Jim Cook | TECH-248368

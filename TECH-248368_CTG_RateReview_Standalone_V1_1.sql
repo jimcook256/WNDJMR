@@ -18,7 +18,7 @@ TARGET SYSTEM:  SSMS result grid (read-only; only temp tables are created)
 BUSINESS LOGIC:
     - Edit @StartDate / @EndDate below (EndDate is inclusive; +1 day applied)
     - Lane rows: tariffrate changed in window (RecordType New / After)
-    - Header rows: tariffheader.tar_rate > 0, tar_updateon in window, active
+    - Header rows: tariffheader.tar_rate > 0, tar_updateon in window, any tariffkey (ended keys included),
       tariffkey, and no grid rates on the tariff (RecordType 'Header')
 
 CHANGE LOG:
@@ -454,7 +454,7 @@ UPDATE #TariffRates
 
 
 -- Header (flat) rates: tariffheader.tar_rate with no lane grid                              -- Jim Cook | TECH-248368
--- One row per active tariffkey (customer). Tariffs already returning lane rows are skipped. -- Jim Cook | TECH-248368
+-- One row per tariffkey (customer), ended keys included. Tariffs already returning lane rows are skipped. -- Jim Cook | TECH-248368
 INSERT INTO #HeaderRates                                                                     -- Jim Cook | TECH-248368
     (                                                                                        -- Jim Cook | TECH-248368
      Tariff#                                                                                 -- Jim Cook | TECH-248368
