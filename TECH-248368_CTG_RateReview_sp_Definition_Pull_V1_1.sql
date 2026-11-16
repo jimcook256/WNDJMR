@@ -1,11 +1,11 @@
 /*
 ================================================================================
-SCRIPT NAME:    TECH-248368_CTG_RateReview_sp_Definition_Pull_V1.sql
+SCRIPT NAME:    TECH-248368_CTG_RateReview_sp_Definition_Pull_V1_1.sql
 TICKET ID:      TECH-248368
 AUTHOR:         Jim Cook (BI Group)
 CREATED:        2026-11-16
 MODIFIED:       2026-11-16
-VERSION:        v1.0
+VERSION:        v1.1
 
 PURPOSE:
     Retrieve the source of CTG_RateReview_sp, the stored procedure behind the
