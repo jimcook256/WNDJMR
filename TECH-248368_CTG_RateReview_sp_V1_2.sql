@@ -1,11 +1,11 @@
 /*
 ================================================================================
-SCRIPT NAME:    TECH-248368_CTG_RateReview_sp_V1_1.sql
+SCRIPT NAME:    TECH-248368_CTG_RateReview_sp_V1_2.sql
 TICKET ID:      TECH-248368
 AUTHOR:         Jim Cook (BI Group)
 CREATED:        2026-11-16
 MODIFIED:       2026-11-16
-VERSION:        v1.1
+VERSION:        v1.2
 
 PURPOSE:
     Add tariff HEADER rates (TMW_LIVE.dbo.tariffheader.tar_rate - flat per-mile /
@@ -19,14 +19,15 @@ TARGET SYSTEM:  SSRS /Covenant Reports Production/Revenue Reports/Rate Review
 BUSINESS LOGIC:
     - NEW rows RecordType = 'Header'
     - Source: tariffheader with tar_rate > 0 and tar_updateon in [@StartDate, @EndDate]
-    - One row per tariffkey (customer) attached to the tariff; tariffs with no
-      active key (trk_enddate past) are excluded (audit = active customers)
+    - One row per tariffkey (customer) attached to the tariff, INCLUDING ended keys
+      (Expires column shows trk_enddate) - e.g. tariff 41785 ended 2026-08-15
     - Tariffs that already return lane rows (tariffrate.tra_rate > 0) are excluded
       so nothing is duplicated
     - OldRate / RateChange = 0 for Header rows (no header rate history table)
     - Lane columns blank; LocationKey = 'HEADER-<tar_number>'
 
 CHANGE LOG:
+    2026-11-16 - J.Cook - TECH-248368 - V1.2: removed active-key (trk_enddate) filter; tariff 41785 (ended 2026-08-15) was excluded
     2026-11-16 - J.Cook - TECH-248368 - Header-rate rows added (see inline markers)
     2026-11-16 - J.Cook - TECH-248368 - V1.1: added USE BISoxReports (ALTER must run in the proc's database)
     (prior history preserved in the original header comment below)
@@ -40,7 +41,7 @@ NOTES:
     - Roll back: re-deploy the 2025-02-06 definition (prev version in DevOps).
     - ASSUMPTIONS TO CONFIRM WITH REVENUE: (1) tar_updateon is the right
       "added/changed" date, (2) tar_mincharge for Minimum, (3) exclude tariffs that
-      already have grid rates, (4) active = key with no/future trk_enddate.
+      already have grid rates, (4) ended tariff keys are included (Expires shows the end date).
 ================================================================================
 */
 
@@ -510,7 +511,6 @@ LEFT JOIN TMW_LIVE.dbo.company cmp ON cmp.cmp_id = tkh.trk_billto               
 WHERE thh.tar_rate > 0                                                                       -- Jim Cook | TECH-248368
   AND thh.tar_updateon >= @StartDate                                                         -- Jim Cook | TECH-248368
   AND thh.tar_updateon < @EndDate                                                            -- Jim Cook | TECH-248368
-  AND (tkh.trk_enddate IS NULL OR tkh.trk_enddate >= GETDATE())                              -- Jim Cook | TECH-248368
   AND NOT EXISTS (SELECT 1 FROM TMW_LIVE.dbo.tariffrate trh                                  -- Jim Cook | TECH-248368
                   WHERE trh.tar_number = thh.tar_number AND trh.tra_rate > 0);               -- Jim Cook | TECH-248368
 

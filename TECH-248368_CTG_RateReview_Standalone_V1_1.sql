@@ -1,11 +1,11 @@
 /*
 ================================================================================
-SCRIPT NAME:    TECH-248368_CTG_RateReview_Standalone_V1.sql
+SCRIPT NAME:    TECH-248368_CTG_RateReview_Standalone_V1_1.sql
 TICKET ID:      TECH-248368
 AUTHOR:         Jim Cook (BI Group)
 CREATED:        2026-11-16
 MODIFIED:       2026-11-16
-VERSION:        v1.0
+VERSION:        v1.1
 
 PURPOSE:
     Stand-alone (no stored procedure) copy of the v1.1 logic of
@@ -22,6 +22,7 @@ BUSINESS LOGIC:
       tariffkey, and no grid rates on the tariff (RecordType 'Header')
 
 CHANGE LOG:
+    2026-11-16 - J.Cook - TECH-248368 - V1.1: removed active-key (trk_enddate) filter; tariff 41785 (ended 2026-08-15) was excluded
     2026-11-16 - J.Cook - TECH-248368 - Initial build (copy of proc v1.1 body)
 
 DEPENDENCIES:
@@ -488,7 +489,6 @@ LEFT JOIN TMW_LIVE.dbo.company cmp ON cmp.cmp_id = tkh.trk_billto               
 WHERE thh.tar_rate > 0                                                                       -- Jim Cook | TECH-248368
   AND thh.tar_updateon >= @StartDate                                                         -- Jim Cook | TECH-248368
   AND thh.tar_updateon < @EndDate                                                            -- Jim Cook | TECH-248368
-  AND (tkh.trk_enddate IS NULL OR tkh.trk_enddate >= GETDATE())                              -- Jim Cook | TECH-248368
   AND NOT EXISTS (SELECT 1 FROM TMW_LIVE.dbo.tariffrate trh                                  -- Jim Cook | TECH-248368
                   WHERE trh.tar_number = thh.tar_number AND trh.tra_rate > 0);               -- Jim Cook | TECH-248368
 
