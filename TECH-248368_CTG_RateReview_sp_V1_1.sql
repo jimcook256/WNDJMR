@@ -1,11 +1,11 @@
 /*
 ================================================================================
-SCRIPT NAME:    TECH-248368_CTG_RateReview_sp_V1.sql
+SCRIPT NAME:    TECH-248368_CTG_RateReview_sp_V1_1.sql
 TICKET ID:      TECH-248368
 AUTHOR:         Jim Cook (BI Group)
 CREATED:        2026-11-16
 MODIFIED:       2026-11-16
-VERSION:        v1.0
+VERSION:        v1.1
 
 PURPOSE:
     Add tariff HEADER rates (TMW_LIVE.dbo.tariffheader.tar_rate - flat per-mile /
@@ -28,6 +28,7 @@ BUSINESS LOGIC:
 
 CHANGE LOG:
     2026-11-16 - J.Cook - TECH-248368 - Header-rate rows added (see inline markers)
+    2026-11-16 - J.Cook - TECH-248368 - V1.1: added USE BISoxReports (ALTER must run in the proc's database)
     (prior history preserved in the original header comment below)
 
 DEPENDENCIES:
@@ -42,6 +43,9 @@ NOTES:
       already have grid rates, (4) active = key with no/future trk_enddate.
 ================================================================================
 */
+
+USE BISoxReports;   -- Jim Cook | TECH-248368
+GO
 
 ALTER PROCEDURE [dbo].[CTG_RateReview_sp]
     (@StartDate DATETIME

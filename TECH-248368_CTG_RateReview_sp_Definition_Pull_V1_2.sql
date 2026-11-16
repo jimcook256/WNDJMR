@@ -1,11 +1,11 @@
 /*
 ================================================================================
-SCRIPT NAME:    TECH-248368_CTG_RateReview_sp_Definition_Pull_V1_1.sql
+SCRIPT NAME:    TECH-248368_CTG_RateReview_sp_Definition_Pull_V1_2.sql
 TICKET ID:      TECH-248368
 AUTHOR:         Jim Cook (BI Group)
 CREATED:        2026-11-16
 MODIFIED:       2026-11-16
-VERSION:        v1.1
+VERSION:        v1.2
 
 PURPOSE:
     Retrieve the source of CTG_RateReview_sp, the stored procedure behind the
@@ -27,6 +27,7 @@ BUSINESS LOGIC:
 CHANGE LOG:
     2026-11-16 - J.Cook - TECH-248368 - Initial build
     2026-11-16 - J.Cook - TECH-248368 - V1.1 fix: COLLATE DATABASE_DEFAULT in step 1 (Msg 451 UNION collation conflict)
+    2026-11-16 - J.Cook - TECH-248368 - V1.2: USE BISoxReports enabled before steps 2-4 (were returning 0 rows from TMW_LIVE)
 
 DEPENDENCIES:
     - sys.sql_modules / sys.procedures in the database hosting CTG_RateReview_sp
@@ -51,8 +52,8 @@ EXEC sys.sp_executesql @sql;
 GO
 
 -- 2) Full definition - switch USE to the DbName returned above (likely BISoxReports)
--- USE BISoxReports;
--- GO
+USE BISoxReports;   -- Jim Cook | TECH-248368 (proc lives here; steps 2-4 returned 0 rows from TMW_LIVE)
+GO
 SELECT  OBJECT_SCHEMA_NAME(m.object_id) AS SchemaName,
         OBJECT_NAME(m.object_id)        AS ProcName,
         m.definition
